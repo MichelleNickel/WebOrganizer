@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>{% block title %}{% endblock %}</title>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+        <link href="../static/styles.css" rel="stylesheet">
+    </head>
+    
+    <body>
+
+        <header>
+            {% block header %}{% endblock %}
+        </header>
+
+        <main>
+            {% block main %}{% endblock %}
+        </main>
+
+        <!--{% if not session["user_id"] %}-->
+        <nav>
+            <ul>
+                <li><a href="/">Home</a></li>
+                <li><a href="/">Calender</a></li>
+                <li><a href="/">Projects</a></li>
+                <li><a href="/">To Do's</a></li>
+                <li><a href="/">Shopping</a></li>
+                <li><a href="/">Customization</a></li>
+            </ul>
+        </nav>
+        <!--{% endif %}-->
+
+        <footer>
+            {% if not session["user_id"] %}
+                <div>
+                    <p>
+                        Email: michelle.nickel96@gmx.de<br>
+                        GitHub: https://github.com/MichelleNickel
+                    </p>
+                </div>
+            {% else %}
+                <div>
+                    <a href="">Settings</a>
+                    <a href="">Account</a>
+                    <a href="">Help</a>
+                    <a href="">Logout</a>
+                </div>
+                <div>
+                    <p>
+                        <a href="">Impressum</a>
+                        <a href="">Contact</a>
+                        <a href="">Donate</a>
+                        Email: michelle.nickel96@gmx.de<br>
+                        GitHub: https://github.com/MichelleNickel
+                    </p>
+                </div>
+            {% endif %}
+        </footer>
+    </body>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+</html>

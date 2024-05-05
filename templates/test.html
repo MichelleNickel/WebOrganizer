@@ -1,0 +1,101 @@
+{% extends "template.html" %}
+
+{% block title %}
+    testpage
+{% endblock %}
+
+{% block header %}
+    <img id="banner" src="../static/images/catBanner.png" alt="Cat-Banner" >
+{% endblock %}
+
+{% block main %}
+
+    this is a main block of test page
+    <section>
+        <h2>To Do's</h2>
+        <ul>
+            <li>do laundry</li>
+            <li>askesa</li>
+            <li>cuddles</li>
+        </ul>
+        <ul>
+            <li>procrastination</li>
+        </ul>
+    </section>
+
+    <section>
+        <h2>This Week</h2>
+        <table class="table table-bordered table-dark">
+            <thead>
+                <tr>
+                    <th scope="col">Monday</th>
+                    <th scope="col">Tuesday</th>
+                    <th scope="col">Wednesday</th>
+                    <th scope="col">Thursday</th>
+                    <th scope="col">Friday</th>
+                    <th scope="col">Saturday</th>
+                    <th scope="col">Sunday</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>
+                        22.04. <br><br>
+                        20:30-21:30<br>
+                        Stretching
+                    </td>
+                    <td>23.04.</td>
+                    <td>
+                        24.04. <br><br>
+                        18:00-19:00<br>
+                        Pole Dancing
+                    </td>
+                    <td>
+                        25.04.   Today<br><br>
+                        20:30-21:30<br>
+                        Stretching
+                    </td>
+                    <td>26.04.</td>
+                    <td>
+                        27.04. <br><br>
+                        11:00-14:00<br>
+                        Winter Kaffee
+                    </td>
+                    <td>
+                        28.04. <br><br>
+                        14:00-	&#8734; <br>
+                        Fotos machen
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        29.04. <br><br>
+                        19:15-20:15 <br>
+                        Pole Dancing <br>
+                        20:30-21:30 <br>
+                        Stretching
+                    </td>
+                    <td>
+                        30.04. <br><br>
+                        18:00 <br>
+                        Shopping TKMaxx
+                    </td>
+                    <td>
+                        01.05. <br><br>
+                        18:00-19:00 <br>
+                        Pole Dancing
+                    </td>
+                    <td>02.04.</td>
+                    <td>
+                        03.04. <br><br>
+                        18:00- &#8734; <br>
+                        Meal Prep
+                    </td>
+                    <td>04.04.</td>
+                    <td>05.04.</td>
+                </tr>
+            </tbody>
+        </table>
+    </section>
+
+{% endblock %}

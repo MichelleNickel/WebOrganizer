@@ -1,0 +1,50 @@
+body {
+    /*  define a container element as a grid */
+    display: grid;
+    min-width: 100vw;
+    min-height: 100vh;
+    /* define the grid sizes */
+    align-content: stretch;
+    grid-template-columns: auto 1fr;
+    grid-template-rows: auto auto 1fr;
+    grid-template-areas: 
+        "header header"
+        "nav main"
+        "footer footer";
+    background-color: #201f1e;
+}
+header {
+    grid-area: header;
+    justify-content: center;
+
+    background-color: rgb(255, 209, 235);
+}
+
+nav {
+    grid-area: nav;
+    align-content: center;
+    justify-content: center;
+
+    color: #fdc0c0;
+    background-color: #fe5959;
+}
+
+main {
+    color: #fe5959;
+    grid-area: main;
+    justify-self: center;
+
+    /*background-color: red;*/
+}
+
+footer {
+    grid-area: footer;
+
+    text-align: center;
+    color: #fe5959;
+    background-color: #fe9999;
+}
+
+h2 {
+    color: #fdc0c0;
+}
