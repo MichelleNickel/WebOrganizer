@@ -19,12 +19,22 @@ app.config["TEMPLATES_AUTO_RELOAD"] = True
 
 # Initialize database
 connecc = sqlite3.connect('test.db', check_same_thread=False)
-connecc.execute(""" CREATE TABLE IF NOT EXISTS Users (
-    user_id INTEGER PRIMARY KEY AUTOINCREMENT,
-    username TEXT NOT NULL,
-    password_hash TEXT NOT NULL)
-""")
-# connecc.execute("CREATE IF NOT EXIST UNIQUE INDEX username ON users (username)")
+
+# add email TEXT NOT NULL in users ? 
+connecc.execute("""
+        CREATE TABLE IF NOT EXIST Users (
+                user_id INTEGER PRIMARY KEY AUTOINCREMENT,
+                username TEXT NOT NULL,
+                password_hash TEXT NOT NULL  
+        );
+        CREATE TABLE IF NOT EXIST Layout_prefs (
+                id INTEGER PRIMARY KEY,
+                user_id INTEGER NOT NULL,
+                element_name TEXT NOT NULL,
+                display_order INTEGER NOT NULL,
+                FOREIGN KEY (user_id) REFERENCES Users(user_id)
+        ); """)
+#connecc.execute("CREATE IF NOT EXIST UNIQUE INDEX username ON users (username);")
 dbCursor = connecc.cursor()
 
 
@@ -42,6 +52,77 @@ def index():
 @app.route("/home")
 def home():
     return render_template("home.html")
+
+
+@app.route('/save_layout', methods=['POST'])
+def save_layout():
+    data = request.get_json()
+    user_id = data['user_id']
+    layout_prefs = data['layout_prefs']
+
+    # Delete existing prefs for the user
+    delete_user_prefs(user_id)
+
+    # Save new preferences
+    for i, pref in enumerate(layout_prefs):
+        element_name = pref['element_name']
+        display_order = i+1
+        save_user_prefs(user_id, element_name, display_order)
+
+    return jsonify({'message': 'Layout preferences saved successfully'})
+
+def delete_user_prefs(user_id):
+    connecc.execute("DELETE FROM Layout_prefs WHERE user_id = ?", user_id)
+    return
+
+def save_user_prefs(user_id, element_name, display_order):
+    connecc.execute("INSERT INTO Layout_prefs (user_id, element_name, display_order) VALUES (?, ?, ?)", user_id, element_name, display_order)
+    return
+
+
+if __name__ == "__main__":
+    app.run(debug=True)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
