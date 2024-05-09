@@ -44,16 +44,18 @@ def index():
         # If a user is logged in, direct them to the homepage
         return redirect("/home")
     else:
-        # If not, direct them to the about page
+        # If not, direct them to the index page
         # return render_template("index.html")
         return render_template("test.html")
     
 
-@app.route("/home")
+@app.route("/home", methods=["GET", "POST"]) ##!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 def home():
+    if "user_id" in session:
     return render_template("home.html")
 
 
+# Saving the current layout of the main-page
 @app.route('/save_layout', methods=['POST'])
 def save_layout():
     data = request.get_json()
@@ -71,10 +73,12 @@ def save_layout():
 
     return jsonify({'message': 'Layout preferences saved successfully'})
 
+# Deleting the saved layout preferences of the current user
 def delete_user_prefs(user_id):
     connecc.execute("DELETE FROM Layout_prefs WHERE user_id = ?", user_id)
     return
 
+# Saving the layout preferences of the current user
 def save_user_prefs(user_id, element_name, display_order):
     connecc.execute("INSERT INTO Layout_prefs (user_id, element_name, display_order) VALUES (?, ?, ?)", user_id, element_name, display_order)
     return
