@@ -4,12 +4,35 @@
     testpage
 {% endblock %}
 
+{% block customCSS %}
+    <!-- <link href="../static/customStyles.css" rel="stylesheet"> -->
+{% endblock %}
+
 {% block header %}
     <img id="banner" src="../static/images/catBanner.png" alt="Cat-Banner" >
 {% endblock %}
 
 {% block main %}
 
+    <h2>THIS IS THE TEST AREA</h2>
+
+    <div class="containers">
+        {% for pref in layout_prefs %}
+            <div>{{ pref.element_name }}</div>
+        {% endfor %}
+    </div>
+
+    <div id="widgetContainer"></div>
+
+    <!--
+    <script src="{{ url_for('static', filename='js/dynamicHomePage.js') }}"></script>
+    <script>
+        // layout_prefs from jinja somehow
+        renderHomepage(layout_prefs);
+    </script>
+    -->
+    
+    <h2>THIS IS THE CONTROL AREA</h2>
     this is a main block of test page
     <section>
         <h2>To Do's</h2>
@@ -98,4 +121,12 @@
         </table>
     </section>
 
+{% endblock %}
+
+{% block scripts %}
+    <script src="{{ url_for('static', filename='js/dynamicHomePage.js') }}"></script>
+    <script>
+        // layout_prefs from jinja somehow
+        renderHomepage(layout_prefs);
+    </script>
 {% endblock %}

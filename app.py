@@ -12,31 +12,38 @@ app = Flask(__name__)
 app.config["SESSION_PERMANENT"] = False
 # Use a Filesystem and store data in the hard drive in a /flask_session folder. An alternative to using a database.
 app.config["SESSION_TYPE"] = "filesystem"
+app.config["SESSION_FILE_DIR"] = "./flask_session_cache"
 Session(app)
 
 # Ensure templates are auto-reloaded
 app.config["TEMPLATES_AUTO_RELOAD"] = True
+
+
+# ---------------- DATABASE
 
 # Initialize database
 connecc = sqlite3.connect('test.db', check_same_thread=False)
 
 # add email TEXT NOT NULL in users ? 
 connecc.execute("""
-        CREATE TABLE IF NOT EXIST Users (
+        CREATE TABLE IF NOT EXISTS Users (
                 user_id INTEGER PRIMARY KEY AUTOINCREMENT,
                 username TEXT NOT NULL,
                 password_hash TEXT NOT NULL  
-        );
-        CREATE TABLE IF NOT EXIST Layout_prefs (
+        ) """)
+connecc.execute("""
+        CREATE TABLE IF NOT EXISTS Layout_prefs (
                 id INTEGER PRIMARY KEY,
                 user_id INTEGER NOT NULL,
                 element_name TEXT NOT NULL,
                 display_order INTEGER NOT NULL,
                 FOREIGN KEY (user_id) REFERENCES Users(user_id)
-        ); """)
+        ) """) # maybe no id, but rather user_id and element_name as key?
 #connecc.execute("CREATE IF NOT EXIST UNIQUE INDEX username ON users (username);")
 dbCursor = connecc.cursor()
 
+
+# ---------------- APP ROUTES
 
 @app.route("/")
 def index():
@@ -52,7 +59,15 @@ def index():
 @app.route("/home", methods=["GET", "POST"]) ##!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 def home():
     if "user_id" in session:
-    return render_template("home.html")
+        user_id = session[user_id]
+        # Fetch user's layout preferences from the database
+        layout_prefs = get_user_lprefs(user_id)
+        # Render homepage based on the prefs
+        #return render_template("home.html", layout_prefs=layout_prefs)
+        return render_template("test.html", layout_prefs=layout_prefs)
+    else:
+        # render index?
+        return redirect("/")
 
 
 # Saving the current layout of the main-page
@@ -63,23 +78,32 @@ def save_layout():
     layout_prefs = data['layout_prefs']
 
     # Delete existing prefs for the user
-    delete_user_prefs(user_id)
+    delete_user_lprefs(user_id)
 
     # Save new preferences
     for i, pref in enumerate(layout_prefs):
         element_name = pref['element_name']
         display_order = i+1
-        save_user_prefs(user_id, element_name, display_order)
+        save_user_lprefs(user_id, element_name, display_order)
 
-    return jsonify({'message': 'Layout preferences saved successfully'})
+    return jsonify({'message': 'Layout preferences saved successfully'}) #????????
+
+
+# ---------------- HELPER METHODS
 
 # Deleting the saved layout preferences of the current user
-def delete_user_prefs(user_id):
+def delete_user_lprefs(user_id):
     connecc.execute("DELETE FROM Layout_prefs WHERE user_id = ?", user_id)
     return
 
+def get_user_lprefs(user_id):
+    # Databasequery to fetch the user preferences
+    # maybe without display_order, if it is already sorted? 
+    layout_prefs = connecc.execute("SELECT element_name, display_order FROM Layout_prefs WHERE user_id = ? ORDER BY display_order", user_id)
+    return layout_prefs
+
 # Saving the layout preferences of the current user
-def save_user_prefs(user_id, element_name, display_order):
+def save_user_lprefs(user_id, element_name, display_order):
     connecc.execute("INSERT INTO Layout_prefs (user_id, element_name, display_order) VALUES (?, ?, ?)", user_id, element_name, display_order)
     return
 
