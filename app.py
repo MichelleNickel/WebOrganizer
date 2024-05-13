@@ -1,4 +1,4 @@
-from flask import Flask, render_template, redirect, flash, request, session
+from flask import Flask, render_template, redirect, flash, request, session, jsonify
 from flask_session import Session
 #from flask_mail import Mail, Message
 #from werkzeug.security import check_password_hash, generate_password_hash
@@ -33,30 +33,38 @@ connecc.execute("""
         ) """)
 connecc.execute("""
         CREATE TABLE IF NOT EXISTS Layout_prefs (
-                id INTEGER PRIMARY KEY,
+                id INTEGER PRIMARY KEY AUTOINCREMENT,
                 user_id INTEGER NOT NULL,
                 element_name TEXT NOT NULL,
                 display_order INTEGER NOT NULL,
                 FOREIGN KEY (user_id) REFERENCES Users(user_id)
         ) """) # maybe no id, but rather user_id and element_name as key?
 #connecc.execute("CREATE IF NOT EXIST UNIQUE INDEX username ON users (username);")
+
+# ---------------- TESTING PURPOSE
+connecc.execute("INSERT INTO Users (username, password_hash) VALUES('tester', 'test')")
+connecc.execute("INSERT INTO Layout_prefs (user_id, element_name, display_order) VALUES(1, 'toDo', 2)")
+connecc.execute("INSERT INTO Layout_prefs (user_id, element_name, display_order) VALUES(1, 'week', 1)")
 dbCursor = connecc.cursor()
 
 
 # ---------------- APP ROUTES
 
-@app.route("/")
+# app.route("/")
+@app.route("/home")
 def index():
     if "user_id" in session:
         # If a user is logged in, direct them to the homepage
-        return redirect("/home")
+        # return redirect("/home")
+        return redirect("/")
     else:
         # If not, direct them to the index page
         # return render_template("index.html")
-        return render_template("test.html")
+        return render_template("test3.html")
     
 
-@app.route("/home", methods=["GET", "POST"]) ##!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+# app.route("/home", methods=["GET", "POST"]) ##!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+@app.route("/", methods=["GET", "POST"])
 def home():
     if "user_id" in session:
         user_id = session[user_id]
@@ -67,7 +75,10 @@ def home():
         return render_template("test.html", layout_prefs=layout_prefs)
     else:
         # render index?
-        return redirect("/")
+        #return redirect("/")
+        #return redirect("/home")
+        #return "<h1>Hello, World</h1>"
+        return render_template("test2.html")
 
 
 # Saving the current layout of the main-page
