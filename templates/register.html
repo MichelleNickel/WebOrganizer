@@ -1,0 +1,28 @@
+{% extends "template.html" %}
+
+{% block title %}
+    Register
+{% endblock %}
+
+{% block main %}
+   
+    <form action="/register" method="post" autocomplete="off">
+        <div><input autofocus name="username" placeholder="your username" type="text" required></div>
+        <div><input name="password" placeholder="password" type="password" required></div>
+        <div><input name="confirmPassword" placeholder="repeat password" type="password" required></div>
+        <div><button type="submit">Login</button></div>
+    </form>    
+
+    <p>
+        Password requirements:
+        <ul>
+            <li>at least 8 characters long</li>
+            <li>contains atleast one uppercase letter</li>
+            <li>contains atleast one lowercase letter</li>
+            <li>contains atleast one number</li>
+            <li>contains atleast one symbol (?!-+)</li>
+            <li>all of the characters are either a symbol or alphanums</li>
+        </ul>
+    </p>
+
+{% endblock %}

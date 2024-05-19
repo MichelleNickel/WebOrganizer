@@ -1,0 +1,14 @@
+{% extends "template.html" %}
+
+{% block title %}
+    Logout
+{% endblock %}
+
+{% block main %}
+
+    <form action="/logout" method="post">
+        <div><p>Are you sure you want to log out?</p></div>
+        <div><button type="submit">Logout</button></div>
+    </form>  
+
+{% endblock %}
