@@ -22,31 +22,34 @@ app.config["TEMPLATES_AUTO_RELOAD"] = True
 # ---------------- DATABASE
 
 # Initialize database
-connecc = sqlite3.connect('test.db', check_same_thread=False)
+connecc = sqlite3.connect('test.db', check_same_thread=False, autocommit=True)
 
 # add email TEXT NOT NULL in users ? 
 connecc.execute("""
         CREATE TABLE IF NOT EXISTS Users (
                 user_id INTEGER PRIMARY KEY AUTOINCREMENT,
-                username TEXT NOT NULL,
+                username TEXT NOT NULL UNIQUE,
                 password_hash TEXT NOT NULL  
         ) """)
 connecc.execute("""
         CREATE TABLE IF NOT EXISTS Layout_prefs (
-                id INTEGER PRIMARY KEY AUTOINCREMENT,
                 user_id INTEGER NOT NULL,
                 element_name TEXT NOT NULL,
                 display_order INTEGER NOT NULL,
+                PRIMARY KEY (user_id, element_name)
                 FOREIGN KEY (user_id) REFERENCES Users(user_id)
-        ) """) # maybe no id, but rather user_id and element_name as key?
+        ) """) # maybe no id, but rather user_id and element_name as key? (id INTEGER PRIMARY KEY AUTOINCREMENT)
 #connecc.execute("CREATE IF NOT EXIST UNIQUE INDEX username ON users (username);")
 
-# ---------------- TESTING PURPOSE
-#connecc.execute("INSERT INTO Users (username, password_hash) VALUES('tester', 'test')")
-#connecc.execute("INSERT INTO Layout_prefs (user_id, element_name, display_order) VALUES(1, 'toDo', 2)")
-#connecc.execute("INSERT INTO Layout_prefs (user_id, element_name, display_order) VALUES(1, 'week', 1)")
-dbCursor = connecc.cursor()
 
+
+# ---------------- TESTING PURPOSE
+#testHash = generate_password_hash("test")
+#connecc.execute("INSERT OR REPLACE INTO Users (username, password_hash) VALUES('tester', ?)", [testHash])
+#connecc.execute("INSERT OR REPLACE INTO Layout_prefs (user_id, element_name, display_order) VALUES(1, 'toDo', 2)")
+#connecc.execute("INSERT OR REPLACE INTO Layout_prefs (user_id, element_name, display_order) VALUES(1, 'week', 1)")
+
+dbCursor = connecc.cursor()
 
 # ---------------- APP ROUTES
 
@@ -74,11 +77,11 @@ def home():
         # if there are no prefs specified yet
         if len(layout_prefs) < 1:
             # create prefs
-            return render_template("test3.html");
+            return render_template("test3.html")
         else:
             # Render homepage based on the prefs
             #return render_template("home.html", layout_prefs=layout_prefs)
-            return render_template("test.html", layout_prefs=layout_prefs)
+            return render_template("test.html", layout_prefs=layout_prefs, message="MESSAGE CAUSE YOU ARE LOGGED IN")
     else:
         # render index?
         #return redirect("/")
@@ -274,7 +277,7 @@ def get_user_lprefs(user_id):
     # maybe without display_order, if it is already sorted? 
     dbCursor.execute("SELECT element_name, display_order FROM Layout_prefs WHERE user_id = ? ORDER BY display_order", (user_id,))
     # Returns a list of touples, empty list if well... empty.
-    return dbCursor.fetchall();
+    return dbCursor.fetchall()
 
 # Saving the layout preferences of the current user
 def save_user_lprefs(user_id, element_name, display_order):
