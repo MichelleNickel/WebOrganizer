@@ -1,0 +1,36 @@
+{% extends "template.html" %}
+
+<!--
+    This page is to set the layout preferences.
+    If the user already has preferences they will be loaded accordingly.
+    if not the list will be shown empty.
+-->
+
+{% block title %}
+    welcome
+{% endblock %}
+
+{% block customCSS %}
+    <!-- <link href="../static/customStyles.css" rel="stylesheet"> -->
+{% endblock %}
+
+{% block header %}
+    <!-- <img id="banner" src="../static/images/catBanner.png" alt="Cat-Banner" > -->
+{% endblock %}
+
+{% block main %}
+
+    <h1>Set your preferred Layout</h1>
+
+    <p>
+        Please choose the widgets you would like to be displayed on your homepage. (It has to be at least one)<br/>
+        Just drag and drop them into the previewbox below in any order you want.<br/>
+        You can delete widgets by clicking the trash-icon on the left or change the order of them with the arrow keys.
+    </p>
+
+    <form action="/welcome" method="post">
+        <button type="submit" aria-label="set layout button">Let's go!</button>    
+    </form>
+
+
+{% endblock %}

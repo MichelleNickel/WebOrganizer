@@ -1,6 +1,5 @@
 from flask import Flask, render_template, redirect, flash, request, session, jsonify
 from flask_session import Session
-#from flask_mail import Mail, Message
 from werkzeug.security import check_password_hash, generate_password_hash
 import sqlite3
 #import os
@@ -56,19 +55,30 @@ dbCursor = connecc.cursor()
 @app.route("/")
 #@app.route("/home")
 def index():
+    # If a user is logged in
     if "user_id" in session:
-        # If a user is logged in, direct them to the homepage
-        # return redirect("/home")
-        return redirect("/home")
+        user_id = session["user_id"]
+        # Fetch user's layout preferences from the database
+        layout_prefs = get_user_lprefs(user_id)
+
+        # if there are no prefs specified yet
+        if len(layout_prefs) < 1:
+            # create prefs
+            return redirect("/welcome")
+            #return render_template("welcome.html")
+        else: 
+            # redirect them to their homepage
+            return redirect("/home")
     else:
         # If not, direct them to the index page
         # return render_template("index.html")
-        return render_template("welcome.html")
+        return render_template("landing.html")
     
 
 @app.route("/home", methods=["GET", "POST"]) ##!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 #@app.route("/", methods=["GET", "POST"])
 def home():
+    # If a user is logged in
     if "user_id" in session:
         user_id = session["user_id"]
         # Fetch user's layout preferences from the database
@@ -208,7 +218,13 @@ def login():
         # Save user_id in session (log them in)
         session["user_id"] = userID
         flash("You are now logged in. Hello :)", 'success')
-        return redirect("/")
+
+        # Check if layout prefs are set already 
+        dbCursor.execute("SELECT * FROM Layout_prefs WHERE user_id = ?", [userID])
+        if len(dbCursor.fetchall()) < 1:
+            return redirect("/set_layout")
+        else:
+            return redirect("/")
 
 
 # Log out
@@ -226,6 +242,31 @@ def logout():
         return redirect("/")
     
 
+@app.route("/welcome", methods=["GET", "POST"])
+def welcome():
+    # If user reached this site via GET
+    if request.method == "GET":
+        return render_template("welcome.html")
+    else:
+        return redirect("/set_layout")
+    
+
+@app.route("/set_layout")
+def set_layout():
+    # If a user is logged in
+    if "user_id" in session:
+        user_id = session["user_id"]
+        # Fetch user's layout preferences from the database
+        layout_prefs = get_user_lprefs(user_id)
+
+        # if there are no prefs specified yet
+        if len(layout_prefs) < 1:
+            # create prefs
+            return render_template("setLayout.html")
+        else:
+            return render_template("setLayout.html", layout_prefs=layout_prefs)
+        
+        
 
 # Saving the current layout of the main-page
 @app.route('/save_layout', methods=['POST'])

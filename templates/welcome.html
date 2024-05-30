@@ -1,5 +1,10 @@
 {% extends "template.html" %}
 
+<!--
+    This page is welcoming people who have just registered but don't have any layout_preferences yet.
+    It asks the user to set their preferences
+-->
+
 {% block title %}
     welcome
 {% endblock %}
@@ -14,16 +19,19 @@
 
 {% block main %}
 
-    <h1>This is the welcome page</h1>
+    <h1>Welcome!</h1>
 
-    <p> Here will be a bit of advertisement of the webpage. </p>
+    <p>
+        Oh, you are new here.<br/>
+        Let's customize your own personal mainpage.<br/>
+        Our goal is to create a page where you can see the most important information at a glance.<br/>
+        But what is the important information? That is up to you to choose.<br/>
+        Don't worry this will not take long :)
+    </p>
 
-    <form action="/register" method="post">
-        <button type="submit" aria-label="register button">Register</button>    
+    <form action="/welcome" method="post">
+        <button type="submit" aria-label="set layout button">Let's go!</button>    
     </form>
 
-    <form action="/login" method="post">
-        <button type="submit" aria-label="register button">Log In</button>
-    </form>
 
 {% endblock %}

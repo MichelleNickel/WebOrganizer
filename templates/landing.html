@@ -1,0 +1,29 @@
+{% extends "template.html" %}
+
+{% block title %}
+    landing
+{% endblock %}
+
+{% block customCSS %}
+    <!-- <link href="../static/customStyles.css" rel="stylesheet"> -->
+{% endblock %}
+
+{% block header %}
+    <!-- <img id="banner" src="../static/images/catBanner.png" alt="Cat-Banner" > -->
+{% endblock %}
+
+{% block main %}
+
+    <h1>This is the welcome page</h1>
+
+    <p> Here will be a bit of advertisement of the webpage. </p>
+
+    <form action="/register" method="post">
+        <button type="submit" aria-label="register button">Register</button>    
+    </form>
+
+    <form action="/login" method="post">
+        <button type="submit" aria-label="register button">Log In</button>
+    </form>
+
+{% endblock %}
