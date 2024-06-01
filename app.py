@@ -50,6 +50,10 @@ connecc.execute("""
 
 dbCursor = connecc.cursor()
 
+# ---------------- GLOBAL VARIABLES
+
+WIDGETLIST = ["toDo", "week", "month", "year", "projects", "shopping"]
+
 # ---------------- APP ROUTES
 
 @app.route("/")
@@ -242,6 +246,7 @@ def logout():
         return redirect("/")
     
 
+# The welcome page for new users (telling them that you need to set your layout pref's)
 @app.route("/welcome", methods=["GET", "POST"])
 def welcome():
     # If user reached this site via GET
@@ -251,6 +256,7 @@ def welcome():
         return redirect("/set_layout")
     
 
+# Page to set the layout-prefs 
 @app.route("/set_layout")
 def set_layout():
     # If a user is logged in
@@ -262,14 +268,14 @@ def set_layout():
         # if there are no prefs specified yet
         if len(layout_prefs) < 1:
             # create prefs
-            return render_template("setLayout.html")
+            return render_template("setLayout.html", WIDGETLIST=WIDGETLIST)
         else:
-            return render_template("setLayout.html", layout_prefs=layout_prefs)
+            return render_template("setLayout.html", WIDGETLIST=WIDGETLIST, layout_prefs=layout_prefs)
         
         
 
 # Saving the current layout of the main-page
-@app.route('/save_layout', methods=['POST'])
+@app.route("/save_layout", methods=["POST"])
 def save_layout():
     data = request.get_json()
     user_id = data['user_id']
@@ -285,6 +291,36 @@ def save_layout():
         save_user_lprefs(user_id, element_name, display_order)
 
     return jsonify({'message': 'Layout preferences saved successfully'}) #????????
+
+
+# Saving a basic, predefined layout and redirecting the user to the main page with said layout
+# The predefined layout is: 
+#   1) To Do's and 
+#   2) Week Planner
+@app.route("/save_basic_layout", methods=["POST"])
+def save_basic_layout():
+    # Delete the currently saved preferences in the database
+    # Set new preferences in the database 
+    return render_template("test.html")
+
+
+# Resets the current saved layout in the settings page (refresh the page)
+# and deletes the current layout_prefs in the database
+@app.route("/reset_layout", methods=["POST"])
+def reset_layout():
+    if "user_id" in session:
+        user_id = session["user_id"]
+
+        # Delete the currently saved preferences in the database
+        delete_user_lprefs(user_id)
+
+        # Refresh / Reload set_layout page
+        return render_template("test.html")
+    else:
+        # If there is no user logged in, tell them to log in first
+        flash("You need to be logged in to edit the layout preferences.", 'danger')
+        redirect("/")
+
 
 
 # ---------------- HELPER METHODS

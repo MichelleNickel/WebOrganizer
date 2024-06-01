@@ -11,7 +11,11 @@
 {% endblock %}
 
 {% block customCSS %}
-    <!-- <link href="../static/customStyles.css" rel="stylesheet"> -->
+    <link href="../static/setLayoutStyles.css" rel="stylesheet">
+{% endblock %}
+
+{% block scripts %} 
+    <script src="../static/js/setLayoutScript.js" async defer></script>
 {% endblock %}
 
 {% block header %}
@@ -28,9 +32,33 @@
         You can delete widgets by clicking the trash-icon on the left or change the order of them with the arrow keys.
     </p>
 
-    <form action="/welcome" method="post">
-        <button type="submit" aria-label="set layout button">Let's go!</button>    
+    <form action="/reset_layout" method="post">
+        <button type="submit" aria-label="reset layout prefs button">reset</button>    
     </form>
+    <form action="/save_basic_layout" method="post">
+        <button type="submit" aria-label="save basic layout button">basic</button>    
+    </form>
+    <form action="/save_layout" method="post">
+        <button type="submit" aria-label="save layout button">save</button>    
+    </form>
+
+    <!-- List of choosable widgets -->
+    <h2>Options</h2>
+    <div class="widgetContainer">
+        {% for widget in WIDGETLIST %}
+            <p class="draggableWidget" draggable="true">{{ widget }}</p>
+        {% endfor %}
+    </div>
+
+    <!-- List of chosen widgets -->
+    <h2>Homepage</h2>
+    <div class="widgetContainer chosenWidgets">
+        <!--
+            <p class="draggableWidget" draggable="true">{{ widget }}</p>
+            <p class="draggableWidget" draggable="true">test</p>
+        -->
+        
+    </div>
 
 
 {% endblock %}

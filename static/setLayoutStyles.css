@@ -1,0 +1,22 @@
+.widgetContainer {
+    background-color: #333;
+    padding: 1rem;
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+    border-radius: 5px;
+}
+
+.chosenWidgets {
+    border: 1px solid #fe5959;
+}
+
+.draggableWidget {
+    padding: 1rem;
+    border: 1px solid #fdc0c0;
+    border-radius: 5px;
+    cursor: move;
+}
+
+.draggableWidget.dragging {
+    opacity: 1; /*was .5*/
+}
