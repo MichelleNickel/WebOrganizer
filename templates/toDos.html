@@ -1,0 +1,39 @@
+{% extends "template.html" %}
+
+{% block title %}
+    To Dos
+{% endblock %}
+
+{% block customCSS %}
+    <!-- <link href="../static/customStyles.css" rel="stylesheet"> -->
+{% endblock %}
+
+{% block header %}
+    <img id="banner" src="../static/images/catBanner.png" alt="Cat-Banner" >
+{% endblock %}
+
+{% block main %}
+
+    <h1>To Do's</h1>
+
+    <form action="/saveToDos" method="post">
+
+        {% for task in currentToDos %}
+            <label>
+                <input type="checkbox" name="{{ task.title }}" value="{{ task.title }}"/>
+                {{ task.title }}
+            </label><br/>
+        {% endfor %}
+
+        {% for task in oldToDos %}
+        <label>
+            <input type="checkbox" name="{{ task.title }}" value="{{ task.title }}" checked/>
+            {{ task.title }}
+        </label><br/>
+        {% endfor %}
+
+        <button type="submit" value="save">Save</button>
+
+    </form>
+
+{% endblock %}
