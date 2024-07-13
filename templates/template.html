@@ -40,17 +40,21 @@
                 <li><a href="/">Home</a></li>
                 <li><a href="/">Calender</a></li>
                 <li><a href="/">Projects</a></li>
-                <li><a href="/">To Do's</a></li>
+                <li><a href="/todo">To Do's</a></li>
                 <li><a href="/">Shopping</a></li>
                 <li><a href="/">Customization</a></li>
             </ul>
         </nav>
 
         <footer>
+            <!-- empty div, so there are three columns at te bottom of the page -->
+            <div></div>
             {% if not session["user_id"] %}
                 <div>
-                    <a href="/register">Register</a>
-                    <a href="/login">LogIn</a>
+                    <a href="/register">Register</a><br/>
+                    <a href="/login">LogIn</a><br/>
+                </div>
+                <div>
                     <p>
                         Email: michelle.nickel96@gmx.de<br>
                         GitHub: https://github.com/MichelleNickel
@@ -58,16 +62,16 @@
                 </div>
             {% else %}
                 <div>
-                    <a href="">Settings</a>
-                    <a href="">Account</a>
-                    <a href="">Help</a>
+                    <a href="">Settings</a><br/>
+                    <a href="">Account</a><br/>
+                    <a href="">Help</a><br/>
                     <a href="/logout">Logout</a>
                 </div>
                 <div>
+                    <a href="">Impressum</a><br/>
+                    <a href="">Contact</a><br/>
+                    <a href="">Donate</a><br/>
                     <p>
-                        <a href="">Impressum</a>
-                        <a href="">Contact</a>
-                        <a href="">Donate</a>
                         Email: michelle.nickel96@gmx.de<br>
                         GitHub: https://github.com/MichelleNickel
                     </p>

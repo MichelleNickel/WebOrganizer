@@ -1,4 +1,6 @@
 body {
+    margin: 0;
+    padding: 0;
     /*  define a container element as a grid */
     display: grid;
     min-width: 100vw;
@@ -22,11 +24,31 @@ header {
 
 nav {
     grid-area: nav;
-    align-content: center;
     justify-content: center;
 
     color: #fdc0c0;
     background-color: #fe5959;
+}
+
+nav ul {
+    list-style: none;
+}
+
+nav li {
+    height: 50px;
+}
+
+nav a {
+    height: 100%;
+    padding: 0 30px;
+    text-decoration: none;
+    color: rgb(255,209,235);
+    display: flex;
+    align-items: center;
+}
+
+nav a:hover {
+    background-color: #fe9999;
 }
 
 main {
@@ -41,9 +63,14 @@ main {
 footer {
     grid-area: footer;
 
-    text-align: center;
     color: #fe5959;
     background-color: #fe9999;
+
+    display: flex;
+}
+
+footer div {
+    flex: 50%;
 }
 
 h2 {

@@ -46,7 +46,7 @@ connecc.execute("""
         CREATE TABLE IF NOT EXISTS Todo (
                 user_id INTEGER NOT NULL,
                 title TEXT NOT NULL,
-                done INTEGER NOT NULL CHECK (outstanding IN (0,1)),
+                done INTEGER NOT NULL CHECK (done IN (0,1)),
                 PRIMARY KEY (user_id, title),
                 FOREIGN KEY (user_id) REFERENCES Users(user_id)
         ) """)
@@ -59,7 +59,7 @@ connecc.execute("""
                 item_amount INTEGER NOT NULL,
                 item_unit TEXT,
                 outstanding INTEGER NOT NULL CHECK (outstanding IN (0,1)),
-                PRIMARY KEY (user_id, title),
+                PRIMARY KEY (user_id, item_name),
                 FOREIGN KEY (user_id) REFERENCES Users(user_id)
         ) """)
 
@@ -367,7 +367,7 @@ def todo():
     else:
         # If there is no user logged in, tell them to log in first
         flash("You need to be logged in to see your to dos :).", 'danger')
-        redirect("/")
+        return redirect("/")
 
 
 # ---------------- HELPER METHODS
@@ -398,7 +398,7 @@ def delete_user_lprefs(user_id):
 
 # Getting the current (not done yet) to dos for the given user_id
 def get_current_toDos(user_id):
-    dbCursor.execute("SELECT title FROM Todo WHERE user_id = ? WHERE done = 0", user_id)
+    dbCursor.execute("SELECT title FROM Todo WHERE user_id = ? AND done = '0'", user_id)
     return dbCursor.fetchall()
 
 # Getting the old (already done but not deleted yet to dos for the given user)
