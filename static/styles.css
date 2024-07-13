@@ -6,7 +6,7 @@ body {
     /* define the grid sizes */
     align-content: stretch;
     grid-template-columns: auto 1fr;
-    grid-template-rows: auto auto 1fr;
+    grid-template-rows: auto 1fr auto;
     grid-template-areas: 
         "header header"
         "nav main"
@@ -33,6 +33,7 @@ main {
     color: #fe5959;
     grid-area: main;
     justify-self: center;
+    align-self: center;
 
     /*background-color: red;*/
 }
