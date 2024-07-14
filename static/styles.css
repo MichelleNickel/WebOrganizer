@@ -15,6 +15,7 @@ body {
         "footer footer";
     background-color: #201f1e;
 }
+
 header {
     grid-area: header;
     justify-content: center;
@@ -29,9 +30,15 @@ nav {
     color: #fdc0c0;
     background-color: #fe5959;
 }
+nav svg {
+    margin: 20px 20px 0px 20px;
+}
 
 nav ul {
     list-style: none;
+    display: none;
+    opacity: 0;
+    transition: ease all 0.5s;
 }
 
 nav li {
@@ -48,7 +55,7 @@ nav a {
 }
 
 nav a:hover {
-    background-color: #fe9999;
+    background-color: #201f1e;
 }
 
 main {
