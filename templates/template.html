@@ -37,12 +37,64 @@
             {% endwith %}
             {% block main %}{% endblock %}
         </main>
+
+        <!--NEW!!!!!-->
+
+        <nav id="sideMenu">
+            <!--
+            <div class="sideMenuTop">
+                <div class="BurgerMenu">
+                    <svg id="BurgerMenuIcon" xmlns="http://www.w3.org/2000/svg" height="30px" viewBox="0 -960 960 960" width="30px" fill="#e8eaed"><path d="M120-240v-80h720v80H120Zm0-200v-80h720v80H120Zm0-200v-80h720v80H120Z"/></svg>
+                </div>
+            </div>
+            -->
+            
+            <input id="sideMenuBtn" type="checkbox" />
+            <label for="sideMenuBtn" id="sideMenuLbl">
+                <svg id="BurgerMenuIcon" xmlns="http://www.w3.org/2000/svg" height="30px" viewBox="0 -960 960 960" width="30px" fill="#e8eaed"><path d="M120-240v-80h720v80H120Zm0-200v-80h720v80H120Zm0-200v-80h720v80H120Z"/></svg>
+            </label>
+            <ul>
+                <li>
+                    <a href="/">
+                        <span class="nav-item">Home</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="/">
+                        <span class="nav-item">Calender</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="/">
+                        <span class="nav-item">Projects</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="/todo">
+                        <span class="nav-item">To Do's</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="/">
+                        <span class="nav-item">Shopping</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="/">
+                        <span class="nav-item">Customization</span>
+                    </a>
+                </li>
+            </ul>
+        </nav>
+
+
     
+        <!--OLD!!!!!!
         <nav>
-            <!-- Menu Icon -->
-             <!--original height: 24px-->
+            <!- Menu Icon ->
+             <!-original height: 24px->
             <svg onclick="toggleSideMenu()" xmlns="http://www.w3.org/2000/svg" height="30px" viewBox="0 -960 960 960" width="30px" fill="#e8eaed"><path d="M120-240v-80h720v80H120Zm0-200v-80h720v80H120Zm0-200v-80h720v80H120Z"/></svg>
-            <!-- Side Menu -->
+            <!- Side Menu ->
             <ul id="sideMenuList">
                 <li><a href="/">Home</a></li>
                 <li><a href="/">Calender</a></li>
@@ -52,6 +104,7 @@
                 <li><a href="/">Customization</a></li>
             </ul>
         </nav>
+        -->
 
         <footer>
             <!-- empty div, so there are three columns at te bottom of the page -->
@@ -86,4 +139,12 @@
             {% endif %}
         </footer>
     </body>
+    <script>
+        //let menuBtn = document.querySelector('#BurgerMenuIcon');
+        //let sideMenu = decument.querySelector('#sideMenu');
+
+        //menuBtn.addEventListener("click", () => {
+            sideMenu.classList.toggle("active");
+        //})
+    </script>
 </html>

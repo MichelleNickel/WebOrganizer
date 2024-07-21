@@ -1,3 +1,5 @@
+/* GENERAL */
+
 body {
     margin: 0;
     padding: 0;
@@ -14,7 +16,14 @@ body {
         "nav main"
         "footer footer";
     background-color: #201f1e;
+    position: relative;
 }
+
+h2 {
+    color: #fdc0c0;
+}
+
+/* HEADER */
 
 header {
     grid-area: header;
@@ -23,6 +32,67 @@ header {
     background-color: rgb(255, 209, 235);
 }
 
+/* SIDE MENU */
+
+#sideMenu {
+    grid-area: nav;
+    justify-content: center;
+
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: auto;
+    color: #fdc0c0;
+    background-color: #fe5959;
+    padding: 0.4rem 0.8rem;
+    border-top-right-radius: 1rem;
+    border-bottom-right-radius: 1rem;
+    transition: ease all 0.5s;
+
+}
+
+#sideMenu ul li {
+    position: relative;
+    list-style-type: none;
+    height: 2rem;
+    margin: 1rem;
+}
+
+#sideMenu ul li a {
+    color: #ffdede;
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+    border-radius: 0.8rem;
+    padding: 0.5rem;
+    font-size: 1.2rem;
+    font-weight: medium;
+}
+
+#sideMenu ul li a:hover {
+    background-color: #fdc0c0;
+    color: #fe5959;
+}
+
+#sideMenuBtn {
+    display: none;
+}
+
+#sideMenuLbl {
+    margin: 0.5rem;
+    color: #ffdede;
+}
+
+#sideMenu ul {
+    display: none;
+}
+
+#sideMenuBtn:checked ~ ul {
+    display: block;
+}
+
+/**
 nav {
     grid-area: nav;
     justify-content: center;
@@ -59,6 +129,11 @@ nav a:hover {
     background-color: #201f1e;
 }
 
+*/
+
+
+/* MAIN */
+
 main {
     color: #fe5959;
     grid-area: main;
@@ -67,6 +142,8 @@ main {
 
     /*background-color: red;*/
 }
+
+/* FOOTER */
 
 footer {
     grid-area: footer;
@@ -79,8 +156,4 @@ footer {
 
 footer div {
     flex: 50%;
-}
-
-h2 {
-    color: #fdc0c0;
 }
