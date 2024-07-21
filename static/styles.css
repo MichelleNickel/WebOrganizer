@@ -29,6 +29,7 @@ nav {
 
     color: #fdc0c0;
     background-color: #fe5959;
+    transition: width
 }
 nav svg {
     margin: 20px 20px 0px 20px;
