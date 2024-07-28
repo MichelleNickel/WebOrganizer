@@ -42,7 +42,7 @@ header {
     top: 0;
     left: 0;
     height: 100%;
-    width: auto;
+    width: fit-content;
     color: #fdc0c0;
     background-color: #fe5959;
     padding: 0.4rem 0.8rem;
@@ -85,51 +85,16 @@ header {
 }
 
 #sideMenu ul {
-    display: none;
+    opacity: 0;
+    max-width: 0;
+    transition: all .5s ease, width 10s ease 2s;
 }
 
 #sideMenuBtn:checked ~ ul {
-    display: block;
+    opacity: 1;
+    max-width: 1000px;
+    transition: all .5s ease, width 10s ease 4s;
 }
-
-/**
-nav {
-    grid-area: nav;
-    justify-content: center;
-
-    color: #fdc0c0;
-    background-color: #fe5959;
-    transition: width
-}
-nav svg {
-    margin: 20px 20px 0px 20px;
-}
-
-nav ul {
-    list-style: none;
-    display: none;
-    opacity: 0;
-    transition: ease all 0.5s;
-}
-
-nav li {
-    height: 50px;
-}
-
-nav a {
-    height: 100%;
-    padding: 0 30px;
-    text-decoration: none;
-    color: rgb(255,209,235);
-    display: flex;
-    align-items: center;
-}
-
-nav a:hover {
-    background-color: #201f1e;
-}
-
-*/
 
 
 /* MAIN */
