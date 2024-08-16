@@ -8,8 +8,32 @@
    
     <form action="/login" method="post" autocomplete="off">
         <div><input autofocus name="username" placeholder="your username" type="text" required></div>
-        <div><input name="password" placeholder="password" type="password" required></div>
+        <div>
+            <input id="password" name="password" placeholder="password" type="password" required>
+            <img id="togglePassword" src="../static/images/visibility_24dp_E8EAED_FILL0_wght400_GRAD0_opsz24.svg" width="24px" alt="eye symbol to toggle password visibility">
+        </div>
         <div><button type="submit">Login</button></div>
     </form>  
 
+{% endblock %}
+
+{% block scripts %}
+    <script>
+        const togglePassword = document.getElementById('togglePassword');
+        let password = document.getElementById('password');
+
+        /* When <img> is clicked */
+        togglePassword.addEventListener('click', function(e) {
+            // Toggle the passwordtype
+            const type = password.getAttribute('type') === 'password' ? 'text' : 'password';
+            password.setAttribute('type', type);
+
+            // Toggle the eye icon
+            if(togglePassword.src.match("../static/images/visibility_24dp_E8EAED_FILL0_wght400_GRAD0_opsz24.svg")) {
+                togglePassword.src = "../static/images/visibility_off_24dp_E8EAED_FILL0_wght400_GRAD0_opsz24.svg";
+            } else {
+                togglePassword.src = "../static/images/visibility_24dp_E8EAED_FILL0_wght400_GRAD0_opsz24.svg";
+            }
+        });
+    </script>
 {% endblock %}
